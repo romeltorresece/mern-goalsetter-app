@@ -25,11 +25,11 @@ function Login() {
     }
 
     if (isSuccess || user) {
-      toast.success(`Welcome Back ${user.name}!`);
       navigate('/');
     }
 
     dispatch(reset());
+    
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {

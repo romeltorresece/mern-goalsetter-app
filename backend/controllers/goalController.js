@@ -20,6 +20,11 @@ const setGoal = asyncHandler(async (req, res, next) => {
         throw new Error('Please add a text field.');
     }
 
+    if (req.body.text.length < 5) {
+        res.status(400);
+        throw new Error('Goal must be at least 5 characters in length.');
+    }
+
     const goal = await Goal.create({
         text: req.body.text,
         user: req.user._id
@@ -49,6 +54,11 @@ const updateGoal = asyncHandler(async (req, res) => {
     if (goal.user.toString() !== req.user.id) {
         res.status(401);
         throw new Error('User not authorized.');
+    }
+
+    if (req.body.text.length < 5) {
+        res.status(400);
+        throw new Error('Goal must be at least 5 characters in length.');
     }
 
     const opts = { new: true, runValidators: true };
